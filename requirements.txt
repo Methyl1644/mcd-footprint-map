@@ -1,0 +1,11 @@
+# 「麦麦足迹地图」运行依赖
+# 说明：本项目核心流程仅依赖 Python 标准库，无需安装任何第三方包即可运行。
+#
+#   python -m mcd_footprint --source mock
+#
+# 下面两个包是可选的：
+#   requests            —— tools/build_geo_data.py 下载地理数据时可选
+#                          （未安装时会自动回退到标准库 urllib）
+# 如需重建地理底图数据，可安装：
+#   pip install requests
+requests>=2.28.0 ; python_version >= "3.8" and extra == "geo"

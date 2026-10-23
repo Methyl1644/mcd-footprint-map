@@ -1,0 +1,1432 @@
+{
+  "_notice": "本文件为【合成示例数据】，字段结构与麦当劳 MCP order-list 真实返回完全一致，但内容非真实消费记录，仅用于无 Token / 无网络环境演示。真实数据请使用 --source mcp。",
+  "success": true,
+  "code": 200,
+  "message": "请求成功",
+  "data": {
+    "list": [
+      {
+        "orderId": "1042896949456874912764951",
+        "orderType": "1",
+        "createTime": "2026-10-22 19:07:43",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1960333",
+        "storeName": "麦当劳天津滨江道餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "24.9",
+        "_mockAddress": "滨江道209号"
+      },
+      {
+        "orderId": "1079678809472301630442983",
+        "orderType": "1",
+        "createTime": "2026-10-21 19:37:30",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990356",
+        "storeName": "麦当劳南京南大和园餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1100",
+            "productName": "巨无霸",
+            "quantity": 2,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "56.0",
+        "_mockAddress": "仙林大道168号164幢1室-1"
+      },
+      {
+        "orderId": "1059227448628950199677645",
+        "orderType": "1",
+        "createTime": "2026-10-19 19:51:31",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2900145",
+        "storeName": "麦当劳重庆解放碑餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "23.0",
+        "_mockAddress": "民权路28号"
+      },
+      {
+        "orderId": "1099304129815603874454054",
+        "orderType": "1",
+        "createTime": "2026-10-13 19:10:36",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2400333",
+        "storeName": "麦当劳武汉楚河汉街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "楚河汉街1号"
+      },
+      {
+        "orderId": "1043234151370784471495945",
+        "orderType": "1",
+        "createTime": "2026-10-10 21:02:50",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "3110444",
+        "storeName": "麦当劳昆明南屏街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "31.0",
+        "_mockAddress": "南屏街4号"
+      },
+      {
+        "orderId": "1095562051846503208900479",
+        "orderType": "1",
+        "createTime": "2026-10-10 20:18:45",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990097",
+        "storeName": "麦当劳南京广州路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "23.0",
+        "_mockAddress": "广州路14号"
+      },
+      {
+        "orderId": "1039639740289225915700184",
+        "orderType": "1",
+        "createTime": "2026-10-06 13:47:26",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2500777",
+        "storeName": "麦当劳长沙黄兴南路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "11.0",
+        "_mockAddress": "黄兴南路445号"
+      },
+      {
+        "orderId": "1081265518894220628083580",
+        "orderType": "1",
+        "createTime": "2026-10-04 23:37:17",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100211",
+        "storeName": "麦当劳杭州湖滨银泰餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          },
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "20.9",
+        "_mockAddress": "延安路98号"
+      },
+      {
+        "orderId": "1069857016922533844686405",
+        "orderType": "1",
+        "createTime": "2026-10-01 20:01:19",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1093115637189284595180213",
+        "orderType": "1",
+        "createTime": "2026-09-29 21:37:57",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100555",
+        "storeName": "麦当劳宁波天一广场餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "13.5",
+        "_mockAddress": "中山东路188号"
+      },
+      {
+        "orderId": "1094516646185902258560523",
+        "orderType": "1",
+        "createTime": "2026-09-26 21:34:57",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100555",
+        "storeName": "麦当劳宁波天一广场餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1100",
+            "productName": "巨无霸",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "9900015566",
+            "productName": "泰式炭烤风味猪猪堡随心配",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "521879",
+                "name": "泰式炭烤风味猪猪堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "4105",
+                "name": "菠萝派",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "42.9",
+        "_mockAddress": "中山东路188号"
+      },
+      {
+        "orderId": "1077972892832082190731708",
+        "orderType": "1",
+        "createTime": "2026-09-24 19:11:55",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990696",
+        "storeName": "麦当劳南京青岛路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "15.0",
+        "_mockAddress": "青岛路33号"
+      },
+      {
+        "orderId": "1060067942046270373182370",
+        "orderType": "1",
+        "createTime": "2026-09-20 23:21:42",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1900456",
+        "storeName": "麦当劳上海陆家嘴餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 2,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "19.0",
+        "_mockAddress": "陆家嘴环路1000号"
+      },
+      {
+        "orderId": "1099895218711498914225491",
+        "orderType": "1",
+        "createTime": "2026-09-17 12:04:16",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "13.5",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1034538192443756192454329",
+        "orderType": "1",
+        "createTime": "2026-09-03 17:22:18",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2800222",
+        "storeName": "麦当劳成都春熙路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "32.5",
+        "_mockAddress": "春熙路步行街1号"
+      },
+      {
+        "orderId": "1088830914964830506322161",
+        "orderType": "1",
+        "createTime": "2026-08-29 13:25:20",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990696",
+        "storeName": "麦当劳南京青岛路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.5",
+        "_mockAddress": "青岛路33号"
+      },
+      {
+        "orderId": "1045548672023020138886906",
+        "orderType": "1",
+        "createTime": "2026-08-25 08:33:37",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 2,
+            "comboItemList": []
+          },
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "32.7",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1073417710654066606787874",
+        "orderType": "1",
+        "createTime": "2026-08-24 11:38:27",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1960333",
+        "storeName": "麦当劳天津滨江道餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "23.0",
+        "_mockAddress": "滨江道209号"
+      },
+      {
+        "orderId": "1051471652720843258407563",
+        "orderType": "1",
+        "createTime": "2026-08-24 10:25:33",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "3000077",
+        "storeName": "麦当劳西安钟楼餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "26.0",
+        "_mockAddress": "东大街600号"
+      },
+      {
+        "orderId": "1045559077086645946445339",
+        "orderType": "1",
+        "createTime": "2026-08-22 23:45:24",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100555",
+        "storeName": "麦当劳宁波天一广场餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "9.9",
+        "_mockAddress": "中山东路188号"
+      },
+      {
+        "orderId": "1087016906747961412046210",
+        "orderType": "1",
+        "createTime": "2026-08-22 01:48:26",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1100",
+            "productName": "巨无霸",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "28.0",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1066775916622484243016213",
+        "orderType": "1",
+        "createTime": "2026-08-19 11:22:09",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2500777",
+        "storeName": "麦当劳长沙黄兴南路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900015566",
+            "productName": "泰式炭烤风味猪猪堡随心配",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "521879",
+                "name": "泰式炭烤风味猪猪堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "4105",
+                "name": "菠萝派",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "14.9",
+        "_mockAddress": "黄兴南路445号"
+      },
+      {
+        "orderId": "1047328610824896609190845",
+        "orderType": "1",
+        "createTime": "2026-08-14 18:06:59",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2500777",
+        "storeName": "麦当劳长沙黄兴南路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900015566",
+            "productName": "泰式炭烤风味猪猪堡随心配",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "521879",
+                "name": "泰式炭烤风味猪猪堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "4105",
+                "name": "菠萝派",
+                "quantity": 1
+              }
+            ]
+          },
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "37.9",
+        "_mockAddress": "黄兴南路445号"
+      },
+      {
+        "orderId": "1051816982729033681501013",
+        "orderType": "1",
+        "createTime": "2026-08-13 19:49:39",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1036288257677873554185135",
+        "orderType": "1",
+        "createTime": "2026-08-09 23:02:54",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100211",
+        "storeName": "麦当劳杭州湖滨银泰餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 2,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "19.8",
+        "_mockAddress": "延安路98号"
+      },
+      {
+        "orderId": "1030207134943338988796489",
+        "orderType": "1",
+        "createTime": "2026-08-07 20:10:02",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 2,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "46.0",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1068512925391184375458533",
+        "orderType": "1",
+        "createTime": "2026-08-07 19:41:34",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990356",
+        "storeName": "麦当劳南京南大和园餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "仙林大道168号164幢1室-1"
+      },
+      {
+        "orderId": "1050008139617353025978243",
+        "orderType": "1",
+        "createTime": "2026-08-06 14:12:15",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1660555",
+        "storeName": "麦当劳沈阳中街餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "中街路128号"
+      },
+      {
+        "orderId": "1069259861693476514549636",
+        "orderType": "1",
+        "createTime": "2026-08-03 21:04:24",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "36.5",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1091777788695593508123252",
+        "orderType": "1",
+        "createTime": "2026-08-03 20:08:43",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1900123",
+        "storeName": "麦当劳上海南京东路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.9",
+        "_mockAddress": "南京东路720号"
+      },
+      {
+        "orderId": "1064746940126863012299694",
+        "orderType": "1",
+        "createTime": "2026-08-02 20:02:55",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2000477",
+        "storeName": "麦当劳苏州园区湖东餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "星湖街328号"
+      },
+      {
+        "orderId": "1034546721053369966467175",
+        "orderType": "1",
+        "createTime": "2026-07-30 22:02:15",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990097",
+        "storeName": "麦当劳南京广州路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "9.9",
+        "_mockAddress": "广州路14号"
+      },
+      {
+        "orderId": "1036728962895485417665214",
+        "orderType": "1",
+        "createTime": "2026-07-29 12:00:46",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2600111",
+        "storeName": "麦当劳广州北京路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 2,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "27.0",
+        "_mockAddress": "北京路295号"
+      },
+      {
+        "orderId": "1071569966825075003584972",
+        "orderType": "1",
+        "createTime": "2026-07-26 23:53:42",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1056358183048896955580324",
+        "orderType": "1",
+        "createTime": "2026-07-23 21:19:38",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990356",
+        "storeName": "麦当劳南京南大和园餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "9.9",
+        "_mockAddress": "仙林大道168号164幢1室-1"
+      },
+      {
+        "orderId": "1069693115964922928012895",
+        "orderType": "1",
+        "createTime": "2026-07-23 03:04:06",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          },
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 2,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "38.0",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1036963497428669810649664",
+        "orderType": "1",
+        "createTime": "2026-07-15 13:15:19",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2000477",
+        "storeName": "麦当劳苏州园区湖东餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900015566",
+            "productName": "泰式炭烤风味猪猪堡随心配",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "521879",
+                "name": "泰式炭烤风味猪猪堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "4105",
+                "name": "菠萝派",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "14.9",
+        "_mockAddress": "星湖街328号"
+      },
+      {
+        "orderId": "1043958607195819194148638",
+        "orderType": "1",
+        "createTime": "2026-07-15 00:37:22",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "15.0",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1086971885538234577968518",
+        "orderType": "1",
+        "createTime": "2026-07-07 22:51:55",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "13.5",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1098410801217415841022160",
+        "orderType": "1",
+        "createTime": "2026-07-02 17:47:00",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1900123",
+        "storeName": "麦当劳上海南京东路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900012387",
+            "productName": "中薯条买一送一",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "4810",
+                "name": "中薯条",
+                "quantity": 2
+              }
+            ]
+          },
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "35.0",
+        "_mockAddress": "南京东路720号"
+      },
+      {
+        "orderId": "1058747486991445827233002",
+        "orderType": "1",
+        "createTime": "2026-07-01 21:07:44",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.5",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1053575066323135720921899",
+        "orderType": "1",
+        "createTime": "2026-06-30 02:56:13",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990356",
+        "storeName": "麦当劳南京南大和园餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.5",
+        "_mockAddress": "仙林大道168号164幢1室-1"
+      },
+      {
+        "orderId": "1066188471082053043152792",
+        "orderType": "1",
+        "createTime": "2026-06-28 19:54:08",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2800222",
+        "storeName": "麦当劳成都春熙路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900015566",
+            "productName": "泰式炭烤风味猪猪堡随心配",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "521879",
+                "name": "泰式炭烤风味猪猪堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "4105",
+                "name": "菠萝派",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "14.9",
+        "_mockAddress": "春熙路步行街1号"
+      },
+      {
+        "orderId": "1080945968918203928980120",
+        "orderType": "1",
+        "createTime": "2026-06-12 13:51:03",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990097",
+        "storeName": "麦当劳南京广州路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1200",
+            "productName": "麦香鱼",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "15.0",
+        "_mockAddress": "广州路14号"
+      },
+      {
+        "orderId": "1080018409351083574946316",
+        "orderType": "1",
+        "createTime": "2026-06-06 19:45:47",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2900145",
+        "storeName": "麦当劳重庆解放碑餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "民权路28号"
+      },
+      {
+        "orderId": "1033761832062806367210791",
+        "orderType": "1",
+        "createTime": "2026-06-04 21:00:55",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2100211",
+        "storeName": "麦当劳杭州湖滨银泰餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "延安路98号"
+      },
+      {
+        "orderId": "1087643724915677725442786",
+        "orderType": "1",
+        "createTime": "2026-06-02 11:34:41",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1100",
+            "productName": "巨无霸",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "28.0",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1071775475061634165756833",
+        "orderType": "1",
+        "createTime": "2026-06-01 09:06:16",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2800222",
+        "storeName": "麦当劳成都春熙路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.5",
+        "_mockAddress": "春熙路步行街1号"
+      },
+      {
+        "orderId": "1091023285724700859359293",
+        "orderType": "1",
+        "createTime": "2026-04-27 18:03:13",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990356",
+        "storeName": "麦当劳南京南大和园餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "4810",
+            "productName": "中薯条",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "11.0",
+        "_mockAddress": "仙林大道168号164幢1室-1"
+      },
+      {
+        "orderId": "1068027805586546515599627",
+        "orderType": "1",
+        "createTime": "2026-04-21 19:02:35",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1950482",
+        "storeName": "麦当劳北京王府井东街餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "王府井大街东街8号"
+      },
+      {
+        "orderId": "1039379321322947100332860",
+        "orderType": "1",
+        "createTime": "2026-04-18 20:02:19",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1700",
+            "productName": "麦辣鸡翅2块",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "10.9",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1060729896495991459187283",
+        "orderType": "1",
+        "createTime": "2026-04-17 20:22:40",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "5100",
+            "productName": "麦旋风",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "9.5",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1091678118075003976366390",
+        "orderType": "1",
+        "createTime": "2026-03-15 20:32:47",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2200136",
+        "storeName": "麦当劳合肥淮河路餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "23.0",
+        "_mockAddress": "淮河路步行街77号"
+      },
+      {
+        "orderId": "1045662627230835935484158",
+        "orderType": "1",
+        "createTime": "2026-02-08 18:36:09",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1960333",
+        "storeName": "麦当劳天津滨江道餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 2,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "19.8",
+        "_mockAddress": "滨江道209号"
+      },
+      {
+        "orderId": "1091076184431638369215862",
+        "orderType": "1",
+        "createTime": "2025-12-26 22:11:24",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2900145",
+        "storeName": "麦当劳重庆解放碑餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "1120",
+            "productName": "双层吉士汉堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "23.0",
+        "_mockAddress": "民权路28号"
+      },
+      {
+        "orderId": "1071471340049524496362872",
+        "orderType": "1",
+        "createTime": "2025-11-26 22:37:37",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "1990696",
+        "storeName": "麦当劳南京青岛路餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "3600",
+            "productName": "板烧鸡腿堡",
+            "quantity": 1,
+            "comboItemList": []
+          }
+        ],
+        "realTotalAmount": "21.5",
+        "_mockAddress": "青岛路33号"
+      },
+      {
+        "orderId": "1062190575041357906823395",
+        "orderType": "1",
+        "createTime": "2025-11-26 22:25:01",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2000477",
+        "storeName": "麦当劳苏州园区湖东餐厅",
+        "orderStatus": "订单已完成",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 2,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "19.8",
+        "_mockAddress": "星湖街328号"
+      },
+      {
+        "orderId": "1059233295659927302587084",
+        "orderType": "1",
+        "createTime": "2025-11-26 21:46:37",
+        "beType": "1",
+        "beCode": "",
+        "storeCode": "2000912",
+        "storeName": "麦当劳无锡崇安寺餐厅",
+        "orderStatus": "订单已取消",
+        "orderProductList": [
+          {
+            "productCode": "9900016335",
+            "productName": "芝香脆鸡扒堡早餐两件套",
+            "quantity": 1,
+            "comboItemList": [
+              {
+                "productCode": "522000",
+                "name": "芝香脆鸡扒堡",
+                "quantity": 1
+              },
+              {
+                "productCode": "520689",
+                "name": "小杯鲜萃咖啡",
+                "quantity": 1
+              }
+            ]
+          }
+        ],
+        "realTotalAmount": "9.9",
+        "_mockAddress": "人民中路139号"
+      }
+    ]
+  }
+}

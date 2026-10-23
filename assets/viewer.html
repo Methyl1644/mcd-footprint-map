@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>麦麦足迹地图 · 用吃麦当劳的记录点亮走过的城市</title>
+<style>
+  :root{
+    --bg:#f7f8fa; --card:#ffffff; --line:#e8eaef; --line-strong:#d3d8e0;
+    --ink:#171c24; --ink-2:#4a5462; --ink-3:#8a93a1;
+    --mcd-red:#da291c; --mcd-red-deep:#b71f14; --mcd-yellow:#ffc72c;
+    --lit:#e8452c; --new:#f5a623; --new-soft:#fff2d9;
+    --unlit:#dfe3e8; --sea:#edf2f7; --radius:14px;
+    --ok:#2f7a4d; --ok-soft:#eef6f0;
+    --shadow:0 1px 2px rgba(23,28,36,.04),0 8px 24px rgba(23,28,36,.06);
+    --shadow-lift:0 2px 4px rgba(23,28,36,.06),0 12px 32px rgba(23,28,36,.09);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"HarmonyOS Sans SC","MiSans","Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:14px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-thumb{background:#d6dbe4;border-radius:8px}
+  ::-webkit-scrollbar-thumb:hover{background:#c2c9d5}
+  ::-webkit-scrollbar-track{background:transparent}
+  /* 装饰 1：顶部品牌细条（仅两条实色线，无渐变） */
+  .topbar{height:3px;background:var(--mcd-red);border-bottom:1px solid var(--mcd-yellow)}
+  .wrap{max-width:1320px;margin:0 auto;padding:18px 20px 40px}
+
+  .head{display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px;margin-bottom:18px}
+  .head h1{margin:0;font-size:24px;font-weight:800;letter-spacing:1px}
+  /* 装饰 2：标题下划线小块 */
+  .head h1::after{content:"";display:block;width:26px;height:3px;margin-top:6px;border-radius:2px;background:var(--mcd-red)}
+  .head h1 .m{color:var(--mcd-red)}
+  .head p{margin:4px 0 0;color:var(--ink-3);font-size:13px;letter-spacing:.3px}
+  .head-actions{margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .badge-src{font-size:12px;color:var(--ink-3);border:1px solid var(--line);background:var(--card);padding:4px 10px;border-radius:999px}
+  .badge-src b{color:var(--ink-2)}
+
+  .btn{border:1px solid var(--line-strong);background:var(--card);color:var(--ink-2);
+       border-radius:10px;padding:6px 14px;font-size:13px;cursor:pointer;font-family:inherit;
+       transition:border-color .15s,color .15s,box-shadow .15s}
+  .btn:hover{border-color:var(--mcd-red);color:var(--mcd-red)}
+  .btn.primary{background:var(--mcd-red);border-color:var(--mcd-red-deep);color:#fff;font-weight:600;
+               box-shadow:0 2px 8px rgba(218,41,28,.28)}
+  .btn.primary:hover{filter:brightness(.95);color:#fff;box-shadow:0 3px 10px rgba(218,41,28,.34)}
+  .btn.ghost{background:transparent}
+  .btn.mini{padding:4px 8px;font-size:12px}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:13px 15px;
+        box-shadow:var(--shadow);position:relative}
+  .stat::before{content:"";position:absolute;left:15px;top:0;width:22px;height:3px;border-radius:0 0 3px 3px;
+                background:var(--line-strong)}
+  .stat.hot::before{background:var(--mcd-yellow)}
+  .stat .k{font-size:12px;color:var(--ink-3);letter-spacing:.4px}
+  .stat .v{font-size:26px;font-weight:800;letter-spacing:.5px;margin-top:2px;font-variant-numeric:tabular-nums}
+  .stat.hot .v{color:var(--mcd-red)}
+  .stat .v small{font-size:13px;font-weight:500;color:var(--ink-3)}
+  .stat .bar{height:4px;background:var(--unlit);border-radius:3px;margin-top:8px;overflow:hidden}
+  .stat .bar i{display:block;height:100%;background:var(--lit);border-radius:3px}
+
+  .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;align-items:start}
+  .col{display:flex;flex-direction:column;gap:14px;min-width:0}
+  @media (max-width:980px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;min-width:0}
+  /* 装饰 3：卡片标题左侧 3px 色条（区分层级，不用大色块） */
+  .card .hd{display:flex;align-items:center;gap:8px;padding:12px 15px;border-bottom:1px solid var(--line);
+            font-weight:600;font-size:14px;letter-spacing:.3px;border-left:3px solid var(--line-strong)}
+  .card.acc-red .hd{border-left-color:var(--mcd-red)}
+  .card.acc-yellow .hd{border-left-color:var(--mcd-yellow)}
+  .card .hd small{font-weight:400;color:var(--ink-3);font-size:12px}
+  .card .bd{padding:12px 14px}
+
+  #map{width:100%;height:auto;display:block;background:var(--sea);touch-action:none}
+  .dot{cursor:pointer}
+  .dot circle.hit{fill:transparent}
+  .dot circle.core{stroke:#fff;stroke-width:1.2}
+  .dot text{font-size:11px;fill:var(--ink-2);pointer-events:none;paint-order:stroke;stroke:#fff;stroke-width:3px;stroke-linejoin:round}
+  .prov{fill:#ffffff;stroke:#ccd2da;stroke-width:.8;vector-effect:non-scaling-stroke;transition:fill .15s}
+  .prov:hover{fill:#fdf3e3}
+  .prov.nostats{fill:#e9edf2}
+  .jd{fill:none;stroke:#9aa4b0;stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+
+  .legend{display:flex;flex-wrap:wrap;gap:14px;padding:10px 14px;border-top:1px solid var(--line);font-size:12px;color:var(--ink-2)}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+
+  .tip{position:fixed;pointer-events:none;z-index:60;background:rgba(29,33,41,.94);color:#fff;font-size:12px;
+       padding:7px 10px;border-radius:8px;opacity:0;transition:opacity .12s;max-width:260px;line-height:1.5}
+  .tip b{color:var(--mcd-yellow)}
+
+  .filter{display:none;align-items:center;gap:8px;padding:8px 12px;background:var(--new-soft);
+          border:1px solid #f0d6a4;border-radius:10px;font-size:13px;color:#8a5a12}
+  .filter.on{display:flex}
+  .filter button{margin-left:auto;border:0;background:transparent;color:#8a5a12;cursor:pointer;font-size:16px;line-height:1}
+
+  .memory{padding:10px 0;border-bottom:1px dashed var(--line)}
+  .memory:last-child{border-bottom:0}
+  .memory .t{display:flex;align-items:baseline;gap:8px}
+  .memory .t b{font-size:15px;font-variant-numeric:tabular-nums}
+  .memory .t .slot{font-size:11px;color:var(--ink-3);border:1px solid var(--line);border-radius:6px;padding:1px 6px}
+  .memory .store{font-weight:600;margin-top:2px}
+  .memory .addr{color:var(--ink-3);font-size:12px}
+  .memory .items{margin-top:4px;color:var(--ink-2)}
+  .chip{display:inline-block;font-size:12px;background:#f5f6f8;border:1px solid var(--line);border-radius:8px;padding:1px 8px;margin:2px 4px 0 0;color:var(--ink-2)}
+  .ask{margin-top:6px;font-size:13px;color:#8a5a12;background:#fff8ec;border-left:3px solid var(--new);padding:6px 10px;border-radius:0 8px 8px 0;font-style:italic}
+  .night{display:inline-block;font-size:11px;color:#fff;background:#4a4f5c;border-radius:6px;padding:1px 6px;margin-left:6px}
+  .src-tag{font-size:11px;color:var(--ink-3);border:1px dashed var(--line-strong);border-radius:6px;padding:0 6px;margin-left:6px}
+
+  /* 城市列表（默认视图） */
+  .citylist{max-height:330px;overflow:auto}
+  .city-row{display:flex;gap:10px;padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;
+            border-left:2px solid transparent}
+  .city-row:hover{background:#fafbfc;border-left-color:var(--mcd-yellow)}
+  .city-row.sel{background:#fff5f3;border-left-color:var(--mcd-red)}
+  .city-row .ci{min-width:0;flex:1}
+  .city-row .cn{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .city-row .cs{font-size:12px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .city-row .cc{text-align:right;font-size:12px;color:var(--ink-3);white-space:nowrap}
+  .city-row .cc b{font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+  .tag-new{display:inline-block;font-size:11px;color:#8a5a12;background:var(--new-soft);
+           border:1px solid #f0d6a4;border-radius:6px;padding:0 6px;margin-left:6px;font-weight:400}
+
+  .city-detail .back{font-size:12px;color:var(--ink-3);cursor:pointer;margin-bottom:8px;display:inline-block}
+  .city-detail .back:hover{color:var(--mcd-red)}
+  .dt-sub{font-size:12px;color:var(--ink-3);margin:2px 0 10px}
+  .store-row{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);cursor:pointer;
+             border-left:2px solid transparent;padding-left:8px}
+  .store-row:hover{background:#fafbfc;border-left-color:var(--mcd-yellow)}
+  .store-row.sel{background:#fff5f3;border-left-color:var(--mcd-red)}
+  .store-row .sn{font-weight:600}
+  .store-row .sc{font-size:12px;color:var(--ink-3)}
+
+  .days{max-height:300px;overflow:auto}
+  .day{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer;
+       border-left:2px solid transparent}
+  .day:hover{background:#fafbfc;border-left-color:var(--mcd-yellow)}
+  .day.sel{background:#fff5f3;border-left-color:var(--mcd-red)}
+  .day .d{font-variant-numeric:tabular-nums;font-weight:700;min-width:52px}
+  .day .d small{display:block;font-weight:400;color:var(--ink-3);font-size:11px}
+  .day .c{min-width:0;flex:1}
+  .day .c .s{font-size:13px;color:var(--ink-2)}
+  .day .c .q{font-size:12px;color:var(--ink-3);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .day .n{font-size:11px;color:#8a5a12;background:var(--new-soft);border-radius:6px;padding:0 6px;align-self:center;white-space:nowrap}
+  .today-tag{font-size:11px;color:#fff;background:var(--mcd-red);border-radius:6px;padding:0 6px;margin-left:6px}
+
+  .empty{padding:26px 18px;text-align:center;color:var(--ink-3);font-size:13px}
+  .empty .big{font-size:15px;color:var(--ink-2);margin-bottom:4px}
+
+  .newlist{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .newlist span{font-size:12px;background:var(--new-soft);border:1px solid #f0d6a4;color:#8a5a12;border-radius:999px;padding:2px 10px}
+  .pulse{animation:pulse 1.8s ease-out infinite}
+  @keyframes pulse{0%{r:5;opacity:.85}70%{r:15;opacity:0}100%{r:15;opacity:0}}
+
+  .note{margin-top:14px;font-size:12px;color:var(--ink-3);background:var(--card);border:1px solid var(--line);
+        border-left:3px solid var(--line-strong);border-radius:var(--radius);padding:10px 14px;box-shadow:var(--shadow)}
+  .note b{color:var(--ink-2)}
+  .note.warn{color:#8a5a12;background:#fff8ec;border-color:#f0d6a4;border-left-color:var(--new)}
+
+  /* ---- 设置弹窗 ---- */
+  .mask{position:fixed;inset:0;background:rgba(29,33,41,.35);z-index:80;display:none}
+  .mask.on{display:block}
+  .modal{position:fixed;z-index:81;top:50%;left:50%;transform:translate(-50%,-50%);width:min(460px,92vw);
+         background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 18px 50px rgba(29,33,41,.22);
+         display:none;overflow:hidden}
+  .modal.on{display:block}
+  .modal-hd{display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);font-weight:600}
+  .modal-hd .x{margin-left:auto;border:0;background:transparent;font-size:16px;color:var(--ink-3);cursor:pointer;line-height:1}
+  .modal-bd{padding:14px 16px}
+  .modal-bd .lb{display:block;font-size:12px;color:var(--ink-3);margin:12px 0 5px}
+  .modal-bd .inp{display:flex;gap:8px}
+  .modal-bd input{flex:1;min-width:0;border:1px solid var(--line-strong);border-radius:9px;padding:8px 10px;
+                  font-size:13px;font-family:ui-monospace,Menlo,Consolas,monospace;outline:none}
+  .modal-bd input:focus{border-color:var(--mcd-red)}
+  .modal-bd .hint{margin:0;font-size:12px;color:var(--ink-3);line-height:1.7}
+  .modal-bd .hint code{background:#f2f3f5;border-radius:4px;padding:0 4px;font-size:11px}
+  .st{margin-top:10px;font-size:12px;color:var(--ink-3)}
+  .st b{color:var(--ink-2)}
+  .msg{margin-top:10px;font-size:12px;display:none;padding:7px 10px;border-radius:8px;border:1px solid transparent}
+  .msg.ok{display:block;color:var(--ok);background:var(--ok-soft);border-color:#cfe3d6}
+  .msg.err{display:block;color:#8a2b1e;background:#fdeceb;border-color:#f3c9c4}
+  /* 离线模式下的接入引导：步骤 + 可复制命令 */
+  .steps{margin-top:10px;border:1px solid var(--line);border-radius:10px;background:#fbfcfd;padding:10px 12px;font-size:12px;color:var(--ink-2);line-height:1.8}
+  .steps .tt{font-weight:600;color:var(--ink);margin-bottom:2px}
+  .steps ol{margin:0;padding-left:18px}
+  .steps .cmd{display:flex;align-items:center;gap:6px;margin:2px 0}
+  .steps code{background:#f2f3f5;border:1px solid var(--line);border-radius:6px;padding:2px 7px;
+              font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11px;flex:1;min-width:0;
+              white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .steps .copy{border:1px solid var(--line-strong);background:var(--card);color:var(--ink-2);border-radius:6px;
+               font-size:11px;padding:2px 8px;cursor:pointer;white-space:nowrap;font-family:inherit}
+  .steps .copy:hover{border-color:var(--mcd-red);color:var(--mcd-red)}
+  .steps .alt{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--ink-3)}
+  .modal-ft{display:flex;gap:10px;justify-content:flex-end;padding:12px 16px;border-top:1px solid var(--line);background:#fbfcfd}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);z-index:90;
+         background:rgba(29,33,41,.94);color:#fff;font-size:13px;padding:9px 16px;border-radius:10px;
+         opacity:0;transition:opacity .18s;pointer-events:none;max-width:80vw;text-align:center}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="topbar"></div>
+<div class="wrap">
+
+  <div class="head">
+    <div>
+      <h1><span class="m">麦麦</span>足迹地图</h1>
+      <p>用吃麦当劳的记录，点亮走过的城市，丈量走遍全国的脚步。</p>
+    </div>
+    <div class="head-actions">
+      <div class="badge-src">数据来源：<b id="srcName">—</b><span id="srcMeta"></span></div>
+      <button class="btn" id="btnSettings">⚙ 设置 Token</button>
+    </div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div id="newBox"></div>
+
+  <div class="grid">
+    <div class="card acc-red">
+      <div class="hd">足迹地图 <small id="mapHint">点击城市，查看那座城市的订单</small></div>
+      <svg id="map" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="legend">
+        <span><i style="background:var(--lit)"></i>已点亮城市</span>
+        <span><i style="background:var(--new)"></i>本次新点亮</span>
+        <span><i style="background:var(--unlit)"></i>尚未点亮</span>
+        <span><i style="background:#e9edf2"></i>港澳台（不计入统计）</span>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="card acc-yellow">
+        <div class="hd">已点亮城市 <small id="cityHint">点开一座城市 → 只看它的订单</small></div>
+        <div class="citylist" id="cityBox"></div>
+      </div>
+
+      <div class="filter" id="filterBar">
+        <span id="filterText"></span>
+        <button id="filterClear" title="清除筛选">✕</button>
+      </div>
+
+      <div class="card">
+        <div class="hd">城市订单 <small id="orderHint">未选择城市</small></div>
+        <div class="bd" id="dayDetail"></div>
+      </div>
+
+      <div class="card">
+        <div class="hd">日期时间轴 <small>所选城市的日期索引 · 点一天看当天的回忆</small></div>
+        <div class="days" id="days"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note" id="note"></div>
+</div>
+
+<div class="tip" id="tip"></div>
+<div class="toast" id="toast"></div>
+
+<div class="mask" id="mask"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-hd">
+    <span id="modalTitle">MCP Token 设置</span>
+    <button class="x" id="modalClose" aria-label="关闭">✕</button>
+  </div>
+  <div class="modal-bd">
+    <p class="hint">填写你自己的麦当劳 MCP Token，保存后足迹会立即基于你的账号重新生成。
+      Token 只保存在本机（服务模式写入 <code id="tokenPath">~/.mcd-footprint-map/token.json</code>），
+      不会写进页面、不会上传。</p>
+    <label class="lb" for="tokenInput">MCP_TOKEN</label>
+    <div class="inp">
+      <input id="tokenInput" type="password" placeholder="粘贴你的 MCP Token" autocomplete="off" spellcheck="false" />
+      <button type="button" class="btn mini" id="togglePwd">显示</button>
+    </div>
+    <div class="st" id="tokenState">当前状态：读取中…</div>
+    <div class="msg" id="tokenMsg"></div>
+  </div>
+  <div class="modal-ft">
+    <button class="btn ghost" id="btnClear">清除</button>
+    <button class="btn primary" id="btnSave">保存并使用</button>
+  </div>
+</div>
+
+<script>
+/* ============ 数据（由 render.py 注入，单文件离线可用，无任何外部依赖） ============ */
+const DATA = __FOOTPRINT_DATA__;
+const OUTLINE = __OUTLINE_DATA__;
+
+const SRC_LABEL = {
+  "store_name": "门店名",
+  "address": "门店地址",
+  "override": "人工纠偏",
+  "mcp_probe": "MCP 反查",
+  "unknown": "未识别",
+  "excluded": "不计入",
+};
+
+/* ============ Albers 等积圆锥投影（适合中国版图） ============ */
+const D2R = Math.PI / 180;
+const A = { lon0: 105 * D2R, lat0: 35 * D2R, phi1: 25 * D2R, phi2: 47 * D2R };
+A.n = (Math.sin(A.phi1) + Math.sin(A.phi2)) / 2;
+A.C = Math.cos(A.phi1) ** 2 + 2 * A.n * Math.sin(A.phi1);
+A.rho0 = Math.sqrt(A.C - 2 * A.n * Math.sin(A.lat0)) / A.n;
+function proj(lon, lat) {
+  const lam = lon * D2R, phi = lat * D2R;
+  const theta = A.n * (lam - A.lon0);
+  const rho = Math.sqrt(Math.max(A.C - 2 * A.n * Math.sin(phi), 0)) / A.n;
+  return [rho * Math.sin(theta), rho * Math.cos(theta) - A.rho0];
+}
+
+/* ============ 计算投影包围盒（含九段线与台湾省，保证国家版图完整） ============ */
+const bounds = { x0: Infinity, y0: Infinity, x1: -Infinity, y1: -Infinity };
+function acc(x, y) {
+  if (!isFinite(x) || !isFinite(y)) return;
+  bounds.x0 = Math.min(bounds.x0, x); bounds.x1 = Math.max(bounds.x1, x);
+  bounds.y0 = Math.min(bounds.y0, y); bounds.y1 = Math.max(bounds.y1, y);
+}
+(OUTLINE.features || []).forEach(f => {
+  const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+  (polys || []).forEach(poly => poly.forEach(ring => ring.forEach(p => { const q = proj(p[0], p[1]); acc(q[0], q[1]); })));
+});
+(DATA.cities || []).forEach(c => { if (c.lon != null) { const q = proj(c.lon, c.lat); acc(q[0], q[1]); } });
+
+const W = 760, PAD = 16;
+const sx = (W - PAD * 2) / Math.max(bounds.x1 - bounds.x0, 1e-9);
+const sy = sx;                                   // 保持等比，避免版图变形
+const H = Math.round((bounds.y1 - bounds.y0) * sy + PAD * 2);
+const TX = v => PAD + (v - bounds.x0) * sx;
+const TY = v => PAD + (v - bounds.y0) * sy;
+
+/* ============ 渲染底图 ============ */
+const svg = document.getElementById("map");
+svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+
+function ringPath(ring) {
+  let d = "";
+  ring.forEach((p, i) => { const q = proj(p[0], p[1]); d += (i ? "L" : "M") + TX(q[0]).toFixed(1) + " " + TY(q[1]).toFixed(1); });
+  return d + "Z";
+}
+const gBase = el("g", {});
+(OUTLINE.features || []).forEach(f => {
+  const p = f.properties || {};
+  const polys = f.geometry.type === "Polygon" ? [f.geometry.coordinates] : f.geometry.coordinates;
+  let d = "";
+  (polys || []).forEach(poly => poly.forEach(r => { d += ringPath(r); }));
+  const isJD = p.kind === "boundary-line";
+  const node = el("path", { d, class: isJD ? "jd" : (p.in_stats === false ? "prov nostats" : "prov") });
+  if (!isJD) {
+    node.addEventListener("mousemove", e => showTip(e, `<b>${p.name}</b>`));
+    node.addEventListener("mouseleave", hideTip);
+  }
+  gBase.appendChild(node);
+});
+svg.appendChild(gBase);
+
+/* ============ 渲染城市点位 ============ */
+const gDots = el("g", {});
+const cityByName = {};
+(DATA.cities || []).forEach(c => { cityByName[c.name] = c; });
+
+(DATA.cities || []).forEach(c => {
+  if (c.lon == null || c.lat == null) return;
+  const q = proj(c.lon, c.lat), x = TX(q[0]), y = TY(q[1]);
+  const g = el("g", { class: "dot", "data-city": c.name });
+  if (c.is_new) {
+    g.appendChild(el("circle", { class: "pulse", cx: x, cy: y, r: 5, fill: "none", stroke: "#f5a623", "stroke-width": 2 }));
+  }
+  const r = 3.2 + Math.min(Math.sqrt(c.order_count) * 1.5, 5.5);
+  g.appendChild(el("circle", { class: "core", cx: x, cy: y, r, fill: c.is_new ? "#f5a623" : "#e8452c" }));
+  if (c.order_count >= 3 || c.is_new) {
+    g.appendChild(el("text", { x: x + r + 3, y: y + 4 })).textContent = c.name.replace(/(市|地区|自治州|盟)$/, "");
+  }
+  g.appendChild(el("circle", { class: "hit", cx: x, cy: y, r: Math.max(r + 6, 11) }));
+  g.addEventListener("mousemove", e => showTip(e,
+    `<b>${c.name}</b><br>${c.province || ""} · ${c.order_count} 单 · ${c.visit_count} 次到访<br>` +
+    `首次点亮 ${c.first_visit}${c.is_new ? "<br>本次新点亮的城市" : ""}`));
+  g.addEventListener("mouseleave", hideTip);
+  g.addEventListener("click", () => selectCity(c.name));
+  gDots.appendChild(g);
+});
+svg.appendChild(gDots);
+
+/* ============ 提示气泡 ============ */
+const tip = document.getElementById("tip");
+function showTip(e, html) {
+  tip.innerHTML = html; tip.style.opacity = 1;
+  const x = Math.min(e.clientX + 14, window.innerWidth - 280);
+  tip.style.left = x + "px"; tip.style.top = (e.clientY + 16) + "px";
+}
+function hideTip() { tip.style.opacity = 0; }
+
+/* ============ 顶部统计 ============ */
+const S = DATA.stats || {};
+document.getElementById("srcName").textContent = DATA.meta?.source_label || "—";
+document.getElementById("srcMeta").textContent = DATA.meta?.source_note ? " · " + DATA.meta.source_note : "";
+
+const statCards = [
+  { k: "已点亮城市", v: S.lit_cities, u: ` / ${S.total_cities} 个地级市`, p: S.city_coverage, hot: true },
+  { k: "覆盖省份", v: S.covered_provinces, u: ` / ${S.total_provinces} 个`, p: S.province_coverage },
+  { k: "消费订单", v: S.order_count, u: " 单" },
+  { k: "去过的门店", v: S.store_count, u: " 家" },
+  { k: "深夜场次", v: S.late_night_count, u: " 次（21:00 后）" },
+];
+document.getElementById("stats").innerHTML = statCards.map(s => `
+  <div class="stat${s.hot ? " hot" : ""}">
+    <div class="k">${s.k}</div>
+    <div class="v">${s.v}<small>${s.u || ""}</small></div>
+    ${s.p != null ? `<div class="bar"><i style="width:${Math.min(s.p, 100)}%"></i></div>
+    <div class="k" style="margin-top:4px">覆盖率 ${s.p}%</div>` : ""}
+  </div>`).join("");
+
+/* ============ 本次新点亮提示（含口径说明） ============ */
+if ((S.new_cities || []).length) {
+  document.getElementById("newBox").innerHTML = `
+    <div class="note warn" style="margin:0 0 14px">
+      本次新点亮 <b>${S.new_cities.length}</b> 座城市
+      <div class="newlist">${S.new_cities.map(c => `<span>${c}</span>`).join("")}</div>
+      <div style="margin-top:8px">「本次新点亮」＝ 与上一次查看相比，这次多出来的城市；
+        首次使用时没有历史可比，则按最近 30 天内首次到访计。</div>
+    </div>`;
+}
+
+/* ============ 状态：必须先选城市 ============ */
+const days = DATA.days || [];
+let selectedCity = null, selectedStore = null, selectedDate = null;
+
+function cityDays() {
+  if (!selectedCity) return [];
+  return days.map(d => ({
+    ...d,
+    memories: (d.memories || []).filter(m => m.city === selectedCity &&
+      (!selectedStore || m.store_name === selectedStore)),
+  })).filter(d => d.memories.length);
+}
+
+function fmtMemories(list) {
+  if (!list.length) return `<div class="empty">这一天没有记录。</div>`;
+  return list.map(m => {
+    const items = (m.items || []).map(i =>
+      `<span class="chip">${esc(i.name)}${i.quantity > 1 ? " ×" + i.quantity : ""}` +
+      `${(i.subitems || []).length ? "（" + i.subitems.join("、") + "）" : ""}</span>`).join("");
+    return `<div class="memory">
+      <div class="t"><b>${m.time}</b><span class="slot">${m.slot}</span>
+        ${m.is_late_night ? `<span class="night">深夜</span>` : ""}
+        <span style="margin-left:auto;color:var(--ink-3);font-size:12px">¥${m.amount ?? 0}</span></div>
+      <div class="store">${esc(m.store_name || "未知门店")}
+        ${m.city_source ? `<span class="src-tag">定位：${esc(SRC_LABEL[m.city_source] || m.city_source)}</span>` : ""}</div>
+      ${m.address ? `<div class="addr">${esc(m.address)}</div>` : ""}
+      <div class="items">${items || '<span class="chip">（无明细）</span>'}</div>
+      ${m.late_night_prompt ? `<div class="ask">🌙 ${esc(m.late_night_prompt)}</div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+/* ---- 城市列表 / 城市详情 ---- */
+function renderCityBox() {
+  const box = document.getElementById("cityBox");
+  const hint = document.getElementById("cityHint");
+
+  if (!selectedCity) {
+    hint.textContent = "点开一座城市 → 只看它的订单";
+    const list = (DATA.cities || []).slice().sort((a, b) => b.order_count - a.order_count || a.name.localeCompare(b.name));
+    if (!list.length) { box.innerHTML = `<div class="empty">还没有点亮任何城市。</div>`; return; }
+    box.innerHTML = list.map(c => `
+      <div class="city-row" data-city="${esc(c.name)}">
+        <div class="ci">
+          <div class="cn">${esc(c.name)}${c.is_new ? `<span class="tag-new">新点亮</span>` : ""}</div>
+          <div class="cs">${esc(c.province || "")} · 首次 ${c.first_visit} · 最近 ${c.last_visit}</div>
+        </div>
+        <div class="cc"><b>${c.order_count}</b> 单<br>${(c.stores || []).length} 家店</div>
+      </div>`).join("");
+    box.querySelectorAll(".city-row").forEach(n =>
+      n.addEventListener("click", () => selectCity(n.getAttribute("data-city"))));
+    return;
+  }
+
+  const c = cityByName[selectedCity];
+  if (!c) { selectedCity = null; renderCityBox(); return; }
+  hint.textContent = "再看一家门店，或返回全部城市";
+  const stores = (c.stores || []).map(s => `
+    <div class="store-row ${selectedStore === s.store_name ? "sel" : ""}" data-store="${esc(s.store_name)}">
+      <div>
+        <div class="sn">${esc(s.store_name)}</div>
+        <div class="sc">${s.address ? esc(s.address) + " · " : ""}首次 ${s.first_visit} · ${s.order_count} 单</div>
+      </div>
+      <div class="sc" style="white-space:nowrap">${(s.items || []).slice(0, 3).map(esc).join("、")}</div>
+    </div>`).join("");
+  box.innerHTML = `<div style="padding:12px 14px 4px" class="city-detail">
+      <div class="back" id="backBtn">← 返回全部城市</div>
+      <div style="font-weight:600">${esc(c.name)}
+        <small style="color:var(--ink-3);font-weight:400"> · ${esc(c.province || "")}</small></div>
+      <div class="dt-sub">首次点亮 ${c.first_visit} · 最近 ${c.last_visit} · ${c.order_count} 单 ·
+        ${(c.stores || []).length} 家门店 · ${c.late_night_count} 个深夜${c.is_new ? " · 本次新点亮" : ""}</div>
+      ${stores || '<div class="empty">暂无门店明细</div>'}
+    </div>`;
+  const back = document.getElementById("backBtn");
+  if (back) back.addEventListener("click", () => { selectedCity = null; selectedStore = null; renderAll(); });
+  box.querySelectorAll(".store-row").forEach(n =>
+    n.addEventListener("click", () => selectStore(n.getAttribute("data-store"))));
+}
+
+/* ---- 时间轴（城市的日期索引：只做导航，内容交给《城市订单》） ---- */
+function renderDays() {
+  const box = document.getElementById("days");
+  const list = cityDays();
+  if (!list.length) {
+    box.innerHTML = `<div class="empty">
+      <div class="big">先选一座城市</div>
+      选中城市后，这里按日期列出这座城市的每一次到访。</div>`;
+    return;
+  }
+  const todayStr = DATA.meta?.today || "";
+  box.innerHTML = list.map(d => {
+    const ask = (d.memories || []).map(m => m.late_night_prompt).filter(Boolean)[0] || "";
+    return `<div class="day ${d.date === selectedDate ? "sel" : ""}" data-date="${d.date}">
+      <div class="d">${d.date.slice(5)}<small>${d.weekday || ""}</small></div>
+      <div class="c">
+        <div class="s">${(d.memories || []).length} 单</div>
+        ${ask ? `<div class="q">“${esc(ask)}”</div>` : ""}
+      </div>
+      ${d.date === todayStr ? `<span class="today-tag">今天</span>` : ""}
+      ${d.has_late_night ? `<div class="n">深夜</div>` : ""}
+    </div>`;
+  }).join("");
+  box.querySelectorAll(".day").forEach(n => n.addEventListener("click", () => {
+    selectedDate = n.getAttribute("data-date"); renderDays(); renderOrders();
+  }));
+}
+
+/* ---- 订单区（未选城市时为空态） ---- */
+function renderOrders() {
+  const box = document.getElementById("dayDetail");
+  const hint = document.getElementById("orderHint");
+  const list = cityDays();
+  if (!selectedCity || !list.length) {
+    hint.textContent = "未选择城市";
+    box.innerHTML = `<div class="empty">
+      <div class="big">订单按城市查看</div>
+      在地图上或右侧城市列表里点开一座城市，<br>这里才会显示这座城市的订单。</div>`;
+    return;
+  }
+  let d = list.find(x => x.date === selectedDate) || list[0];
+  selectedDate = d.date;
+  hint.textContent = `${selectedCity}${selectedStore ? " · " + selectedStore : ""} · ${d.date}`;
+  const mems = d.memories || [];
+  const head = `<div style="font-size:12px;color:var(--ink-3);margin-bottom:6px">
+    ${d.date} ${d.weekday || ""} · ${mems.length} 单 · 合计 ¥${mems.reduce((a, b) => a + (b.amount || 0), 0).toFixed(2)}
+    ${d.date === (DATA.meta?.today || "") ? " · 就是今天" : ""}</div>`;
+  box.innerHTML = head + fmtMemories(mems);
+}
+
+function renderFilter() {
+  const bar = document.getElementById("filterBar");
+  const parts = [];
+  if (selectedCity) parts.push(selectedCity);
+  if (selectedStore) parts.push(selectedStore);
+  if (parts.length) {
+    bar.classList.add("on");
+    document.getElementById("filterText").textContent = "正在查看：" + parts.join(" / ");
+  } else bar.classList.remove("on");
+}
+
+function renderMapHighlight() {
+  document.querySelectorAll("#map .dot").forEach(g => {
+    const on = g.getAttribute("data-city") === selectedCity;
+    const core = g.querySelector(".core");
+    core.setAttribute("stroke-width", on ? 3 : 1.2);
+    core.setAttribute("stroke", on ? "#1d2129" : "#fff");
+  });
+}
+
+function renderAll() { renderCityBox(); renderDays(); renderOrders(); renderFilter(); renderMapHighlight(); }
+
+function selectCity(name) {
+  selectedCity = (selectedCity === name) ? null : name;
+  selectedStore = null;
+  selectedDate = null;
+  renderAll();
+}
+function selectStore(name) {
+  selectedStore = (selectedStore === name) ? null : name;
+  selectedDate = null;
+  renderAll();
+}
+document.getElementById("filterClear").addEventListener("click", () => {
+  selectedCity = null; selectedStore = null; selectedDate = null; renderAll();
+});
+
+/* ============ 默认视图：只有城市，没有订单 ============ */
+renderAll();
+
+/* ============ 边界与口径说明 ============ */
+document.getElementById("note").innerHTML = `
+  <div><b>统计口径与边界：</b>仅统计<b>中国大陆地区</b>的地级市（含地区/自治州/盟/省直辖县级行政区），
+  北京、天津、上海、重庆按单一城市单元计；<b>港澳台及海外不计入</b>统计（麦当劳 MCP 服务面向中国大陆地区提供），
+  港澳台仅作为国家版图的一部分绘于底图，不参与点亮。</div>
+  <div style="margin-top:6px"><b>定位逻辑：</b>订单 → 订单所属门店（门店编码 / 门店名）→ 以门店名为主、
+  门店地址为辅匹配地级市 → 取地级行政中心坐标打点。每条订单都标注了定位来源，便于核对与纠偏。</div>
+  ${(DATA.unresolved || []).length ? `<div style="margin-top:6px"><b>待确认：</b>${DATA.unresolved.length} 条记录无法判定城市，
+    已排除在点亮之外，可在 <code>data/city-overrides.json</code> 中人工纠偏。</div>` : ""}
+  <div style="margin-top:6px"><b>数据说明：</b>${esc(DATA.meta?.disclaimer || "")}</div>
+  <div style="margin-top:6px">底图为行政区域边界示意（Albers 等积圆锥投影），不接入任何在线地图瓦片服务。</div>`;
+
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+}
+
+/* =========================================================
+   MCP Token 设置面板
+   - 本地服务模式（python -m mcd_footprint --serve）：
+     保存 → 服务端持久化 → 立即用新 Token 重新取数 → 页面刷新生效
+   - 离线静态文件模式：无法直连 MCP，仅暂存到浏览器本地，
+     并提示启动本地服务后会自动同步
+   ========================================================= */
+const LS_KEY = "mcd_mcp_token";
+const isHttp = location.protocol === "http:" || location.protocol === "https:";
+const $ = id => document.getElementById(id);
+
+/* 浏览器本地暂存：file:// 或隐私模式下 localStorage 可能不可用，必须兜底 */
+function lsGet() { try { return (localStorage.getItem(LS_KEY) || "").trim(); } catch (e) { return ""; } }
+function lsSet(v) { try { localStorage.setItem(LS_KEY, v); return true; } catch (e) { return false; } }
+function lsDel() { try { localStorage.removeItem(LS_KEY); } catch (e) { /* ignore */ } }
+
+let toastTimer = null;
+function toast(msg) {
+  const t = $("toast");
+  t.textContent = msg; t.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("on"), 3200);
+}
+
+async function api(path, opts) {
+  const r = await fetch(path, opts || {});
+  let body = {};
+  try { body = await r.json(); } catch (e) { body = {}; }
+  if (!r.ok && !body.error) body.error = "HTTP " + r.status;
+  return body;
+}
+
+function setMsg(text, kind) {
+  const m = $("tokenMsg");
+  m.className = "msg " + (kind || "");
+  m.textContent = text || "";
+}
+
+/* 离线静态页（file://）接入自己 Token 的完整引导，两条路径任选其一 */
+const SERVE_CMD = "python -m mcd_footprint --serve";
+const SAVE_CMD = "python -m mcd_footprint --save-token";
+function offlineGuideHtml() {
+  return `<div class="steps">
+    <div class="tt">当前是离线静态页面（file://），无法直连麦当劳 MCP。</div>
+    <div class="tt" style="margin-top:6px">路径 A · 页面里填写（推荐）</div>
+    <ol>
+      <li>在终端启动本地服务：<div class="cmd"><code>${SERVE_CMD}</code><button type="button" class="copy" data-copy="${SERVE_CMD}">复制</button></div></li>
+      <li>浏览器打开自动弹出的 <code>http://127.0.0.1:8765</code></li>
+      <li>点右上角「⚙ 设置 Token」，粘贴后「保存并使用」——足迹立即按你的 Token 重新生成</li>
+    </ol>
+    <div class="alt">路径 B · 纯命令行：先保存 Token（会提示输入、不回显），
+      再重新生成页面。<div class="cmd"><code>${SAVE_CMD}</code><button type="button" class="copy" data-copy="${SAVE_CMD}">复制</button></div>
+      之后运行 <code>python -m mcd_footprint --source mcp --out out/footprint.html</code>，打开新产物即可。</div>
+  </div>`;
+}
+function bindCopyButtons(root) {
+  (root || document).querySelectorAll(".steps .copy").forEach(b => {
+    b.addEventListener("click", () => {
+      const text = b.getAttribute("data-copy") || "";
+      const done = () => { b.textContent = "已复制"; toast("命令已复制"); setTimeout(() => b.textContent = "复制", 1800); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => done());
+      } else { done(); }
+    });
+  });
+}
+
+function renderTokenState(s, offline) {
+  const box = $("tokenState");
+  if (offline) {
+    box.innerHTML = `<b>离线静态页面</b>：无法直连 MCP。请按下方路径接入你自己的 Token。` + offlineGuideHtml();
+    bindCopyButtons(box);
+    return;
+  }
+  if (!s) { box.innerHTML = "当前状态：<b>无法连接本地服务</b>"; return; }
+  const local = lsGet();
+  box.innerHTML = s.token_set
+    ? `当前状态：<b>已配置</b> ${esc(s.token_masked || "")}` +
+      (s.updated_at ? ` · 保存于 ${esc(s.updated_at)}` : "") +
+      `<br>数据来源：<b>${esc(s.source_label || s.source || "")}</b>` +
+      (s.order_count ? ` · ${s.order_count} 单 / ${s.lit_cities} 城` : "") +
+      (s.error ? `<br><span style="color:#8a2b1e">${esc(s.error)}</span>` : "")
+    : `当前状态：<b>未配置</b>（正在使用内置示例数据）` +
+      (local ? " · 检测到本机浏览器暂存过 Token，将在打开设置时自动同步" : "");
+  if (s.path) $("tokenPath").textContent = s.path;
+}
+
+function openModal() {
+  $("modal").classList.add("on"); $("mask").classList.add("on");
+  setMsg("", "");
+  const saved = lsGet();
+  if (saved && !$("tokenInput").value) $("tokenInput").value = saved;
+  if (isHttp) {
+    api("/api/state").then(s => renderTokenState(s, false)).catch(() => renderTokenState(null, true));
+  } else {
+    renderTokenState(null, true);
+  }
+}
+function closeModal() { $("modal").classList.remove("on"); $("mask").classList.remove("on"); }
+
+async function saveToken() {
+  const token = ($("tokenInput").value || "").trim();
+  if (!token) { setMsg("请先填写 MCP Token。", "err"); return; }
+  const stored = lsSet(token);
+
+  if (!isHttp) {
+    if (stored) {
+      setMsg("已暂存到本机浏览器。当前是离线静态页面，无法直连 MCP；"
+        + "启动 " + SERVE_CMD + " 后打开服务页面，会自动同步并立即用你的 Token 重新生成足迹。", "ok");
+      toast("已暂存到本机浏览器");
+    } else {
+      setMsg("当前页面无法暂存（浏览器禁用了本地存储）。别急着关——"
+        + "你刚填的 Token 还在输入框里，按下方任一路径操作即可完成设置：", "err");
+      const box = $("tokenState");
+      box.innerHTML = offlineGuideHtml();
+      bindCopyButtons(box);
+    }
+    return;
+  }
+
+  const btn = $("btnSave");
+  btn.disabled = true; btn.textContent = "保存中…";
+  try {
+    const r = await api("/api/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token: token, refresh: 1 }),
+    });
+    if (r.token_saved) {
+      setMsg("✓ 保存成功：" + (r.token_masked || "Token 已写入本机"), "ok");
+      toast("✓ Token 保存成功，正在重新加载你的足迹…");
+      if (r.ok) {
+        setTimeout(() => location.reload(), 900);
+      } else {
+        btn.disabled = false; btn.textContent = "保存并使用";
+        setMsg("✓ 保存成功，但取数失败：" + (r.error || "未知错误") +
+               "。请确认 Token 有效（401=无效/过期，429=限流）。", "err");
+      }
+    } else {
+      btn.disabled = false; btn.textContent = "保存并使用";
+      setMsg("保存失败：" + (r.error || "未知错误"), "err");
+    }
+  } catch (e) {
+    btn.disabled = false; btn.textContent = "保存并使用";
+    setMsg("保存失败：" + e, "err");
+  }
+}
+
+async function clearToken() {
+  lsDel();
+  $("tokenInput").value = "";
+  if (!isHttp) { setMsg("已清除本机浏览器暂存的 Token。", "ok"); return; }
+  try {
+    const r = await api("/api/token", { method: "DELETE" });
+    setMsg("已清除本机保存的 Token，已切回内置示例数据。", "ok");
+    toast("已清除 Token");
+    setTimeout(() => location.reload(), 700);
+  } catch (e) { setMsg("清除失败：" + e, "err"); }
+}
+
+$("btnSettings").addEventListener("click", openModal);
+$("modalClose").addEventListener("click", closeModal);
+$("mask").addEventListener("click", closeModal);
+$("btnSave").addEventListener("click", saveToken);
+$("btnClear").addEventListener("click", clearToken);
+$("togglePwd").addEventListener("click", () => {
+  const i = $("tokenInput");
+  const show = i.type === "password";
+  i.type = show ? "text" : "password";
+  $("togglePwd").textContent = show ? "隐藏" : "显示";
+});
+$("tokenInput").addEventListener("keydown", e => { if (e.key === "Enter") saveToken(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeModal(); });
+
+/* 页面加载后：若本地服务尚未配置 Token，而浏览器里暂存过，自动同步一次 */
+(function autoSync() {
+  if (!isHttp) return;
+  const local = lsGet();
+  if (!local) return;
+  api("/api/state").then(async s => {
+    if (s && s.token_set) return;
+    try {
+      await api("/api/token", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: local, refresh: 1 }),
+      });
+      location.reload();
+    } catch (e) { /* 静默：失败不打扰用户 */ }
+  }).catch(() => {});
+})();
+</script>
+</body>
+</html>

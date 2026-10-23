@@ -1,0 +1,20 @@
+# 运行产物（可重新生成）
+out/
+.state/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 敏感信息
+.env
+*.token
+mcp-config.json
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
